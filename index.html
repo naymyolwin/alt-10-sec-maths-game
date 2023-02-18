@@ -24,7 +24,9 @@
       >
         <div class="card-header bg-primary text-white">10 Sec Maths Game</div>
         <div class="card-body">
-          <h3 class="card-text">Highest Score</h3>
+          <h4 class="card-text">
+            Highest Score : <span id="highScore">0</span>
+          </h4>
 
           <div
             class="startMode position-absolute top-50 start-50 translate-middle mt-4"
@@ -50,9 +52,46 @@
               <div id="countdownbar" class="progress-bar bg-success"></div>
             </div>
 
-            <p class="card-text">Your Score : <span id="score"></span></p>
+            <p class="card-text">Your Score : <span id="score">0</span></p>
             <h4 id="question" class="card-text"></h4>
             <input class="answerInput mb-3" id="answerInput" type="text" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- End Game Modal -->
+    <div
+      class="modal fade"
+      id="gameOverModal"
+      tabindex="-1"
+      aria-labelledby="gameOverModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5">Game Over</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+              onclick="restartGame()"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div>Your Score : <span id="finalScore"></span></div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              onclick="restartGame()"
+            >
+              Close
+            </button>
           </div>
         </div>
       </div>

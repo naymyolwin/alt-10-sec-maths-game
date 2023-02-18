@@ -1,13 +1,19 @@
 let num1 = 0;
 let num2 = 0;
 let highScore = 0;
+let yourScore = 0;
 let timeleft = 100;
 
 $(document).ready(function () {
   $("#btn-start").click(function () {
+    timeleft = 100;
+    yourScore = 0;
+    $("#score").text(yourScore);
+    $("#answerInput").prop("disabled", false);
     $("#answerInput").val("");
     $(".startMode").hide(400);
     $(".answerInput").focus();
+    $("#highScore").text(highScore);
     countDownTimer();
     startGame();
   });
@@ -44,11 +50,10 @@ function generateQA() {
 }
 
 function calculate(ans) {
-  console.log(num1, num2, parseInt(ans));
   if (num1 + num2 === parseInt(ans)) {
-    console.log("TRUE");
-  } else {
-    console.log("FALSE");
+    timeleft += 10;
+    yourScore++;
+    $("#score").text(yourScore);
   }
   startGame();
 }
@@ -57,9 +62,19 @@ function countDownTimer() {
   let myTimer = setInterval(function () {
     if (timeleft <= 0) {
       clearInterval(myTimer);
+      $("#answerInput").prop("disabled", true);
+      if (yourScore > highScore) {
+        highScore = yourScore;
+      }
+      $("#gameOverModal").modal("show");
+      $("#finalScore").text(yourScore);
     }
-    console.log(timeleft);
     $("#countdownbar").width((timeleft / 100) * 100 + "%");
     timeleft -= 1;
   }, 100);
+}
+
+function restartGame() {
+  $(".startMode").show();
+  $("#countdownbar").width("100%");
 }
