@@ -1,14 +1,20 @@
+let num1 = 0;
+let num2 = 0;
+let highScore = 0;
+let timeleft = 100;
+
 $(document).ready(function () {
   $("#btn-start").click(function () {
     $("#answerInput").val("");
     $(".startMode").hide(400);
     $(".answerInput").focus();
+    countDownTimer();
     startGame();
   });
 
   $("#answerInput").on("keypress", function (e) {
     if (e.which == 13) {
-      console.log("ENTER");
+      calculate($("#answerInput").val());
       $("#answerInput").val("");
     }
   });
@@ -27,18 +33,33 @@ $(document).ready(function () {
 });
 
 function startGame() {
-  let numbers = generateQA();
-  let question = numbers[0] + " + " + numbers[1] + " = ";
+  generateQA();
+  let question = num1 + " + " + num2 + " = ";
   $("#question").text(question);
 }
 
 function generateQA() {
-  let num1 = 0;
-  let num2 = 0;
-
   num1 = Math.floor(Math.random() * 9);
   num2 = Math.floor(Math.random() * 9);
+}
 
-  console.log([num1, num2]);
-  return [num1, num2];
+function calculate(ans) {
+  console.log(num1, num2, parseInt(ans));
+  if (num1 + num2 === parseInt(ans)) {
+    console.log("TRUE");
+  } else {
+    console.log("FALSE");
+  }
+  startGame();
+}
+
+function countDownTimer() {
+  let myTimer = setInterval(function () {
+    if (timeleft <= 0) {
+      clearInterval(myTimer);
+    }
+    console.log(timeleft);
+    $("#countdownbar").width((timeleft / 100) * 100 + "%");
+    timeleft -= 1;
+  }, 100);
 }
